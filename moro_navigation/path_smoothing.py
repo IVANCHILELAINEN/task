@@ -78,13 +78,13 @@ def smooth_path(path, num_steps=50, weight=1e-5, max_vel=0.5, max_acc=1.):
     C[3, -(poly_order + 1):] = V(s[-1])
 
     # TODO: Assert smooth transition between line segments
-    # to satisfy constraints for path,cel,accwith equation:
+    # to satisfy constraints for path,vel,acc, with equation:
     # fk(sk) = fk+1(s0),f'k(sk) = f'k+1(s0),f''k(sk) = f''k+1(s0)
     for i in range(num_segments - 1):
         # for position
         C[4 + 3 * i, i * (poly_order + 1):(i + 1) * (poly_order + 1)] = P(s[-1])
         C[4 + 3 * i, (i + 1) * (poly_order + 1):(i + 2) * (poly_order + 1)] = -P(s[0])
-        # for vlovity
+        # for velocity
         C[5 + 3 * i, i * (poly_order + 1):(i + 1) * (poly_order + 1)] = V(s[-1])
         C[5 + 3 * i, (i + 1) * (poly_order + 1):(i + 2) * (poly_order + 1)] = -V(s[0])
         # for acceleration

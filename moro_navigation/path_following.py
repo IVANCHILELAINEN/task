@@ -42,7 +42,7 @@ class PathFollower(object):
             v = np.sqrt(np.power(velo[0], 2) + np.power(velo[1], 2))  # calculate magnitude
             that = velo / v  # get direction
             nhat = np.array([[-velo[1]], [velo[0]]]) / v  # get the unit vector normal
-            # get the directioin for next point
+            # get the direction for next point
             vel_next = self._vel[idx + 1].reshape((-1, 1))
             that_next = vel_next / np.sqrt(np.power(vel_next[0], 2) + np.power(vel_next[1], 2))
 
@@ -128,7 +128,7 @@ class PathFollower(object):
             tuple: Linear and angular velocity
         """
         # TODO
-        nearest = self._get_curvature(self, pose)  # to get nearst pos at path
+        nearest = self._get_nearest(self, pose)  # to get nearest pos at path
         desired_pos, heading = self._get_desired_pose(nearest)  # get desired pose and linear velocity
         trans_matrix = self._get_transform(nearest)
         curvature = self._get_curvature(nearest)
@@ -137,7 +137,7 @@ class PathFollower(object):
 
         e = np.dot(trans_matrix, (pose - qd).resize((-1, 1)))
 
-        lamda = -3  # design a desired behave
+        lamda = -3  # design a desired behaviour
         k2 = lamda * lamda
         k3 = -2 * lamda
 

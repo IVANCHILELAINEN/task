@@ -240,8 +240,8 @@ def dynamic_programming(graph, start, goal):
     # Bellman-ford
     shortest_dist[start] = 0
     for i in range(n-1):
-        for u in range(len(graph[0])):  #scanns all rows
-            for v in range(len(graph[0])):  #scanns all columns
+        for u in range(len(graph[0])):
+            for v in range(len(graph[0])):
                 if shortest_dist[v] > shortest_dist[u] + graph[u, v]:
                     shortest_dist[v] = shortest_dist[u] + graph[u, v]
                     prev[v] = u  #corresponds to current node in the graph
